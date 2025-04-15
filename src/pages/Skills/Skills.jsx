@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Container from "../../components/Ui/container/Container";
-import { skills } from "./SKILLS_DATA.JSX";
+import { skills } from "./SKILLS_DATA.jsx";
 
 // Memoized SkillCard to avoid unnecessary re-renders
 const SkillCard = React.memo(({ skill, index }) => {
