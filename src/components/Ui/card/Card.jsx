@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { deleteProject, getImageUrl } from "../../../features/projects/projectSlice";
+import { deleteProject } from "../../../features/projects/projectSlice";
 import { useNavigate } from "react-router-dom";
 
 // Lazy load image component
@@ -10,7 +10,7 @@ const LazyImage = React.memo(({ src, alt }) => (
   <img
     src={src}
     alt={alt}
-    className="w-full h-64 object-cover"
+    className="w-full h-60 object-cover"
     loading="lazy" // Lazy load image for better performance
   />
 ));
@@ -21,30 +21,30 @@ const Card = ({ project, admin = false }) => {
 
   const handleDelete = useCallback(() => {
     dispatch(deleteProject(project._id));
-    console.log("Deleted project", project._id);
   }, [dispatch, project._id]);
 
   const handleUpdate = useCallback(
     (id) => {
-      console.log("Edit clicked", id);
       navigate(`/update-project/${id}`);
     },
     [navigate]
   );
 
   return (
-    <div className="bg-white/30 text-white rounded-2xl shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-300 h-[470px] flex flex-col justify-between">
-      {project.image && (
-        <LazyImage src={getImageUrl(project.image)} alt={project.name} />
-      )}
+    <div className="bg-white/30 text-white rounded-2xl  shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl  flex flex-col justify-between">
+      {/* Lazy-loaded image */}
+      {project.image && <LazyImage src={project.image} alt={project.name} />}
 
-      <div className="p-5 flex flex-col flex-1 justify-between">
+      <div className="p-5 flex flex-col justify-between flex-1">
         <div>
-          <h2 className="text-xl font-bold text-orange-400 mb-2">{project.name}</h2>
+          {/* Project name */}
+          <h2 className="text-xl font-semibold text-orange-400 mb-2">{project.name}</h2>
+          {/* Project description */}
           <p className="text-gray-200 text-sm line-clamp-3">{project.description}</p>
         </div>
 
         <div className="mt-4 flex items-center justify-between">
+          {/* Project URL */}
           <a
             href={project.url}
             target="_blank"
@@ -56,15 +56,19 @@ const Card = ({ project, admin = false }) => {
 
           {admin && (
             <div className="flex space-x-2">
+              {/* Edit button */}
               <button
                 onClick={() => handleUpdate(project._id)}
                 className="p-2 rounded-full hover:bg-orange-400 hover:text-white transition"
+                aria-label="Edit project"
               >
                 <FaEdit size={18} />
               </button>
+              {/* Delete button */}
               <button
                 onClick={handleDelete}
                 className="p-2 rounded-full hover:bg-red-500 hover:text-white transition"
+                aria-label="Delete project"
               >
                 <MdDelete size={20} />
               </button>
@@ -76,4 +80,4 @@ const Card = ({ project, admin = false }) => {
   );
 };
 
-export default React.memo(Card); // Memoize the component for better performance
+export default React.memo(Card); // Memoized for performance optimization

@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const initialState= {
+const initialState = {
   admins: [],
   loading: false,
   error: null,
   isLoggedIn: localStorage.getItem("isAdmin") === "true", // 🔥 read from localStorage
-}
+};
 
-// Fetch admin users from backend
+// Fetch admin users from the backend
 export const fetchAdmins = createAsyncThunk("admin/fetchAdmins", async () => {
   try {
     const response = await axios.get(

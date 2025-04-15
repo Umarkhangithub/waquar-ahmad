@@ -14,7 +14,7 @@ const UpdateProject = () => {
   const navigate = useNavigate();
 
   const { loading, project } = useSelector((state) => state.projects);
-  const [formInitialized, setFormInitialized] = useState(false); // ✅ New state
+  const [formInitialized, setFormInitialized] = useState(false);
 
   const [formData, setFormData] = useState({
     projectName: "",
@@ -26,7 +26,6 @@ const UpdateProject = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [errors, setErrors] = useState({});
 
-  // Fetch project on mount
   useEffect(() => {
     const fetchProject = async () => {
       try {
@@ -38,7 +37,7 @@ const UpdateProject = () => {
           image: null,
         });
         setPreviewImage(project.imageUrl || null);
-        setFormInitialized(true); // ✅ Only allow form after this
+        setFormInitialized(true);
       } catch (error) {
         toast.error("Failed to load project.");
       }
@@ -47,7 +46,6 @@ const UpdateProject = () => {
     fetchProject();
   }, [id, dispatch]);
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -63,7 +61,6 @@ const UpdateProject = () => {
     }
   };
 
-  // Validate form
   const validateForm = () => {
     const newErrors = {};
     if (!formData.projectName.trim()) newErrors.projectName = "Project Name is required";
@@ -82,7 +79,6 @@ const UpdateProject = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -100,7 +96,6 @@ const UpdateProject = () => {
     if (formData.image) {
       submissionData.append("image", formData.image);
     }
-    console.log("updated data", submissionData)
 
     try {
       await dispatch(updateProject({ id, data: submissionData })).unwrap();
@@ -114,7 +109,7 @@ const UpdateProject = () => {
   if (loading || !formInitialized) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-       <Loader size="h-20 w-20" />
+        <Loader size="h-20 w-20" />
       </div>
     );
   }
@@ -122,7 +117,7 @@ const UpdateProject = () => {
   return (
     <Container>
       <div className="min-h-[80vh] flex flex-col items-center pt-20 pb-6 px-4">
-        <div className="w-full max-w-2xl backdrop-blur-sm border p-8 rounded-lg shadow-md">
+        <div className="w-xs sm:w-sm md:w-md lg:w-lg xl:w-xl backdrop-blur-sm border p-8 rounded-lg shadow-md">
           <h1 className="text-3xl font-bold text-white text-center mb-6">
             Update <span className="text-orange-500">Project</span>
           </h1>

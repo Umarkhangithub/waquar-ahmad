@@ -45,7 +45,6 @@ const AllProjects = () => {
     shallowEqual
   );
 
-  console.log("project is ", projects);
   useEffect(() => {
     dispatch(fetchAllProjects());
   }, [dispatch]);
@@ -61,7 +60,7 @@ const AllProjects = () => {
 
   return (
     <Container>
-      <div className="w-full backdrop-blur-sm p-8 rounded-lg shadow-md">
+      <div className="w-full backdrop-blur-sm p-8 rounded-lg shadow-md ">
         {/* Animated Heading */}
         <motion.h1
           variants={headingVariants}
@@ -74,9 +73,7 @@ const AllProjects = () => {
 
         {/* Error Message */}
         {error && (
-          <div className="text-center text-red-500 mb-4 text-sm">
-            {error}
-          </div>
+          <div className="text-center text-red-500 mb-4 text-sm">{error}</div>
         )}
 
         {/* Loader */}
@@ -93,7 +90,7 @@ const AllProjects = () => {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+                className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-6 "
               >
                 {renderedProjects}
               </motion.div>

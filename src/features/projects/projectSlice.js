@@ -11,9 +11,6 @@ const initialState = {
   message: null,
 };
 
-// Utility to fix image paths
-export const getImageUrl = (imagePath) => `${API}/${imagePath.replace(/\\/g, "/")}`;
-
 // Thunks
 export const fetchAllProjects = createAsyncThunk(
   "projects/fetchAllProjects",

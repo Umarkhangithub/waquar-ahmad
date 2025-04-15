@@ -14,10 +14,14 @@ const AdminRegister = () => {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
 
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { admins, loading, isLoggedIn } = useSelector((state) => state.admin);
-
+  
+  console.log("form data", formData);
+  console.log("admin is",admins)
   // Redirect if already logged in
   useEffect(() => {
     if (isLoggedIn) {
